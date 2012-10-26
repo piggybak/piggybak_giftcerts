@@ -16,7 +16,7 @@ module PiggybakGiftcerts
                                                         :allow_destroy => true,
                                                         :class_name => "::PiggybakGiftcerts::GiftcertApplication",
                                                         :display_in_cart => "Discount"
-                                                      } 
+                                                      }
       end
     end
 
@@ -26,6 +26,38 @@ module PiggybakGiftcerts
 
     initializer "piggybak_giftcerts.rails_admin_config" do |app|
       RailsAdmin.config do |config|
+        config.model PiggybakGiftcerts::Giftcert do
+          navigation_label "Orders"
+          label "Gift Certificates"
+
+          list do
+            field :code
+            field :amount
+            field :expiration_date
+            # application details -> show how much used
+          end
+          edit do
+            field :code
+            field :amount
+            field :expiration_date
+          end
+        end
+
+        config.model PiggybakGiftcerts::GiftcertApplication do
+          label "Giftcert"
+          visible false
+
+          edit do
+            field :code do
+              read_only do
+                !bindings[:object].new_record?
+              end
+              pretty_value do
+                bindings[:object].giftcert ? bindings[:object].giftcert.code : ""
+              end 
+            end
+          end
+        end
       end
     end 
   end

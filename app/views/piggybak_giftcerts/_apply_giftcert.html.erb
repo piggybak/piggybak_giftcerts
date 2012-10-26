@@ -1,0 +1,11 @@
+<%= javascript_include_tag "piggybak_giftcerts/piggybak_giftcerts" %>
+
+<div id="piggybak_giftcert_apply_box">
+<div id="giftcert_response" style="display:none;"></div>
+<input type="text" name="piggybak_giftcert_code" id="giftcert_code" value="<%= params.has_key?(:piggybak_giftcert_code) ? params[:piggybak_giftcert_code] : '' %>" />
+<input type="submit" value="Apply Gift Certificate" id="apply_giftcert" />
+</div>
+
+<script type="text/javascript">
+var giftcert_lookup = "<%= piggybak_giftcerts.apply_giftcert_url %>";
+</script>
