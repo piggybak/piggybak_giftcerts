@@ -1,4 +1,5 @@
 require 'piggybak_giftcerts/line_item_decorator'
+require 'piggybak_giftcerts/order_decorator'
 
 module PiggybakGiftcerts
   class Engine < ::Rails::Engine
@@ -6,6 +7,7 @@ module PiggybakGiftcerts
 
     config.to_prepare do
       Piggybak::LineItem.send(:include, ::PiggybakGiftcerts::LineItemDecorator)
+      Piggybak::Order.send(:include, ::PiggybakGiftcerts::OrderDecorator)
     end
 
     config.before_initialize do
@@ -15,8 +17,10 @@ module PiggybakGiftcerts
                                                         :fields => ["giftcert_application"],
                                                         :allow_destroy => true,
                                                         :class_name => "::PiggybakGiftcerts::GiftcertApplication",
-                                                        :display_in_cart => "Discount"
+                                                        :display_in_cart => "Gift Certificate",
+                                                        :sort => config.line_item_types[:payment][:sort]
                                                       }
+        config.line_item_types[:payment][:sort] += 1
       end
     end
 
@@ -32,9 +36,13 @@ module PiggybakGiftcerts
 
           list do
             field :code
-            field :amount
+            field :amount do
+              formatted_value do
+                "$%.2f" % value
+              end
+            end
             field :expiration_date
-            # application details -> show how much used
+            field :application_detail
           end
           edit do
             field :code
