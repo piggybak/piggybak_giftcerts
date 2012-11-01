@@ -19,6 +19,9 @@ $(function() {
 		return false;		
 	});
 	$('#submit input').unbind('click').click(function(e) {
+		if($('#coupon_code').length) {
+			piggybak_coupons.apply_coupon(false);
+		}
 		piggybak_giftcerts.apply_giftcert(true);
 		return false;
 	});
