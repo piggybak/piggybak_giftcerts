@@ -1,0 +1,8 @@
+Your have purchased gift certificate(s). Gift certificate information:
+
+<% @order.giftcerts.each_with_index do |gc, i| %>
+Gift Certificate #<%= i + 1 %>:
+Code: <%= gc.code %>
+Expiration Date: <%= gc.expiration_date %>
+
+<% end -%>

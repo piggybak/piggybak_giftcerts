@@ -26,6 +26,12 @@ module PiggybakGiftcerts
       end
     end
 
+    initializer "piggybak_variants.add_helper" do |app|
+      ApplicationController.class_eval do
+        helper :piggybak_variants
+      end
+    end
+
     initializer "piggybak_giftcerts.precompile_hook" do |app|
       app.config.assets.precompile += ['piggybak_giftcerts/piggybak_giftcerts.js']
     end
