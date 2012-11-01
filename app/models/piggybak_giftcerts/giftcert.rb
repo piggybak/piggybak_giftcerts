@@ -3,7 +3,7 @@ module PiggybakGiftcerts
     self.table_name = 'giftcerts'
 
     has_many :giftcert_applications
-    belongs_to :order
+    belongs_to :order, :class_name => "::Piggybak::Order"
 
     attr_accessor :application_detail
     attr_accessible :code, :amount, :expiration_date, :order_id

@@ -59,6 +59,9 @@ module PiggybakGiftcerts
               end
             end
             field :expiration_date
+            field :order do
+              label "Purchasing Order"
+            end
             field :application_detail
           end
           edit do
