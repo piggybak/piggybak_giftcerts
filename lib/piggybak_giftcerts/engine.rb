@@ -1,5 +1,6 @@
 require 'piggybak_giftcerts/line_item_decorator'
 require 'piggybak_giftcerts/order_decorator'
+require 'piggybak_giftcerts/percent_decorator'
 
 module PiggybakGiftcerts
   class Engine < ::Rails::Engine
@@ -8,6 +9,7 @@ module PiggybakGiftcerts
     config.to_prepare do
       Piggybak::LineItem.send(:include, ::PiggybakGiftcerts::LineItemDecorator)
       Piggybak::Order.send(:include, ::PiggybakGiftcerts::OrderDecorator)
+      Piggybak::TaxCalculator::Percent.send(:include, ::PiggybakGiftcerts::PercentDecorator)
     end
 
     config.before_initialize do
@@ -30,6 +32,15 @@ module PiggybakGiftcerts
 
     initializer "piggybak_giftcerts.rails_admin_config" do |app|
       RailsAdmin.config do |config|
+        config.model PiggybakGiftcerts::BuyableGiftcert do
+          navigation_label "Orders"
+          label "Gift Certificate Configuration"
+          list do
+            # Hide filter, search, etc
+            field :variants
+          end
+        end
+
         config.model PiggybakGiftcerts::Giftcert do
           navigation_label "Orders"
           label "Gift Certificates"

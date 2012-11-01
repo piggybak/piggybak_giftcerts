@@ -10,5 +10,9 @@ module PiggybakGiftcerts
         render :json => { :valid_giftcert => false, :message => valid_giftcert }
       end
     end
+
+    def purchase
+      @buyable_giftcert = BuyableGiftcert.first
+    end
   end
 end
