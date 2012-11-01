@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    piggybak_giftcerts (0.0.2)
+    piggybak_giftcerts (0.0.3)
       piggybak
       piggybak_variants
       rails (~> 3.2.8)
