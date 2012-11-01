@@ -64,14 +64,14 @@ var piggybak_giftcerts = {
 					$('#giftcert_response').html('Coupon successfully applied to order.');
 					$('#giftcert_application_total').html('-$' + (-1*parseFloat(data.amount)).toFixed(2));
 					$('#giftcert_application_row').show();
-					piggybak.update_totals(false);
+					piggybak.update_totals();
 					if($('#order_total').html() == '$0.00') {
 						$('#piggybak_order_line_items_attributes_1_payment_attributes_number').val('giftcert');
 						$('#payment').hide();
 					}
 				} else {
 					$('#giftcert_response').html(data.message).show();
-					piggybak.update_totals(false);
+					piggybak.update_totals();
 				}
 				if(on_submit) {
 					$('#new_piggybak_order').submit();
