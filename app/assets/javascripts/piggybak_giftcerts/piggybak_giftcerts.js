@@ -18,7 +18,7 @@ $(function() {
 		piggybak_giftcerts.apply_giftcert(false);
 		return false;		
 	});
-	$('#submit input').click(function() {
+	$('#submit input').unbind('click').click(function(e) {
 		piggybak_giftcerts.apply_giftcert(true);
 		return false;
 	});
@@ -46,7 +46,7 @@ var piggybak_giftcerts = {
 			$('#piggybak_order_line_items_attributes_1_payment_attributes_number').val('');
 			$('#payment').show();
 		}
-		var totalcost = piggybak.update_totals();	
+		var totalcost = piggybak.update_totals();
 		$.ajax({
 			url: giftcert_lookup,
 			cached: false,
@@ -70,7 +70,9 @@ var piggybak_giftcerts = {
 						$('#payment').hide();
 					}
 				} else {
-					$('#giftcert_response').html(data.message).show();
+					if($('#giftcert_code').val() != '') {
+						$('#giftcert_response').html(data.message).show();
+					}
 					piggybak.update_totals();
 				}
 				if(on_submit) {
