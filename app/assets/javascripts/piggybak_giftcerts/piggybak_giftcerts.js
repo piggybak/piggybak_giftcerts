@@ -1,47 +1,32 @@
 $(function() {
 	$('#giftcert_code').change(function() {
-		$(this).data('changed', true);
+		piggybak_giftcerts.apply_giftcert();
 	});
 	piggybak.shipping_els.live('change', function() {
 		if($('#giftcert_code').val() != '') {
 			setTimeout(function() {
-				$('#giftcert_code').data('changed', true);
-				piggybak_giftcerts.apply_giftcert(false);
+				piggybak_giftcerts.apply_giftcert();
 			}, 500);
 		}
 	});
 	$('#shipping select').live('change', function() {
-		$('#giftcert_code').data('changed', true);
-		piggybak_giftcerts.apply_giftcert(false);
-	});
-	$('#apply_giftcert').click(function() {
-		piggybak_giftcerts.apply_giftcert(false);
-		return false;		
-	});
-	$('#submit input').unbind('click').click(function(e) {
-		if($('#coupon_code').length) {
-			piggybak_coupons.apply_coupon(false);
-		}
-		piggybak_giftcerts.apply_giftcert(true);
-		return false;
+		piggybak_giftcerts.apply_giftcert();
 	});
 	setTimeout(function() {
 		if($('#giftcert_code').val() != '') {
-			$('#giftcert_code').data('changed', true);
-			piggybak_giftcerts.apply_giftcert(false);
+			piggybak_giftcerts.apply_giftcert();
 		}
 	}, 500);
+	$('#coupon_code').change(function() {
+		setTimeout(function() {
+			piggybak_giftcerts.apply_giftcert();
+		}, 500);
+	});
 });
 
 var piggybak_giftcerts = {
-	apply_giftcert: function(on_submit) {
-		if(!$('#giftcert_code').data('changed')) {
-			if(on_submit) {
-				$('#new_piggybak_order').submit();
-			}
-			return;
-		}
-		$('#giftcert_code').data('changed', false);
+	apply_giftcert: function() {
+		$('#giftcert_ajax').show();
 		$('#giftcert input[type=hidden]').remove();
 		$('#giftcert_response, #giftcert_application_row').hide();
 		$('#giftcert_application_total').html('$0.00');
@@ -64,7 +49,7 @@ var piggybak_giftcerts = {
 					var el2 = $('<input>').attr('type', 'hidden').attr('name', 'piggybak_order[line_items_attributes][3][giftcert_application_attributes][code]').val($('#giftcert_code').val());
 					$('#giftcert').append(el1);
 					$('#giftcert').append(el2);
-					$('#giftcert_response').html('Coupon successfully applied to order.');
+					$('#giftcert_response').html('Gift Certificate successfully applied to order.').show();
 					$('#giftcert_application_total').html('-$' + (-1*parseFloat(data.amount)).toFixed(2));
 					$('#giftcert_application_row').show();
 					piggybak.update_totals();
@@ -78,12 +63,10 @@ var piggybak_giftcerts = {
 					}
 					piggybak.update_totals();
 				}
-				if(on_submit) {
-					$('#new_piggybak_order').submit();
-				}
+				$('#giftcert_ajax').hide();
 			},
 			error: function() {
-				//do nothing right now
+				$('#giftcert_ajax').hide();
 			}
 		});
 	}	
