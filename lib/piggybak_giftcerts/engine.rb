@@ -14,6 +14,7 @@ module PiggybakGiftcerts
 
     config.before_initialize do
       Piggybak.config do |config|
+        config.extra_secure_paths << "/apply_giftcert"
         config.line_item_types[:giftcert_application] = { :visible => true,
                                                         :nested_attrs => true,
                                                         :fields => ["giftcert_application"],

@@ -33,7 +33,9 @@ module PiggybakGiftcerts
             end
           end
         end
-        ::PiggybakGiftcerts::GiftcertMailer.info(self).deliver
+        if self.giftcerts.any?
+          ::PiggybakGiftcerts::GiftcertMailer.info(self).deliver
+        end
       rescue
       end
     end 
