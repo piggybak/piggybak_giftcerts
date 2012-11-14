@@ -40,7 +40,7 @@ module PiggybakGiftcerts
     initializer "piggybak_giftcerts.rails_admin_config" do |app|
       RailsAdmin.config do |config|
         config.model PiggybakGiftcerts::BuyableGiftcert do
-          navigation_label "Orders"
+          navigation_label "Extensions"
           label "Gift Certificate Configuration"
           list do
             # Hide filter, search, etc
@@ -49,7 +49,7 @@ module PiggybakGiftcerts
         end
 
         config.model PiggybakGiftcerts::Giftcert do
-          navigation_label "Orders"
+          navigation_label "Extensions"
           label "Gift Certificates"
 
           list do
