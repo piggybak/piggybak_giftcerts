@@ -35,7 +35,7 @@ module PiggybakGiftcerts
       end
     end
 
-    initializer "piggybak_giftcerts.precompile_hook" do |app|
+    initializer "piggybak_giftcerts.precompile_hook", :group => :all do |app|
       app.config.assets.precompile += ['piggybak_giftcerts/piggybak_giftcerts.js']
     end
 
