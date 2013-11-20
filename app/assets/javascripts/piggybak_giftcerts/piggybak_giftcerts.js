@@ -2,14 +2,14 @@ $(function() {
 	$('#giftcert_code').change(function() {
 		piggybak_giftcerts.apply_giftcert();
 	});
-	piggybak.shipping_els.live('change', function() {
+	$(piggybak.shipping_els).on('change', function() {
 		if($('#giftcert_code').val() != '') {
 			setTimeout(function() {
 				piggybak_giftcerts.apply_giftcert();
 			}, 500);
 		}
 	});
-	$('#shipping select').live('change', function() {
+	$('#shipping select').on('change', function() {
 		piggybak_giftcerts.apply_giftcert();
 	});
 	setTimeout(function() {
