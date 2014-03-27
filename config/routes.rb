@@ -1,4 +1,4 @@
 PiggybakGiftcerts::Engine.routes.draw do
-  match "/apply_giftcert" => "giftcert#apply"
-  match "/giftcert" => "giftcert#purchase", :as => "buy_giftcert"
+  get "/apply_giftcert" => "giftcert#apply"
+  get "/giftcert" => "giftcert#purchase", :as => "buy_giftcert"
 end

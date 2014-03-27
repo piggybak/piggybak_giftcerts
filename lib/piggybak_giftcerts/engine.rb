@@ -26,6 +26,7 @@ module PiggybakGiftcerts
                                                         :sort => config.line_item_types[:payment][:sort]
                                                       }
         config.line_item_types[:payment][:sort] += 1
+        config.additional_line_item_attributes[:giftcert_application_attributes] = [:code]
       end
     end
 
@@ -35,8 +36,8 @@ module PiggybakGiftcerts
       end
     end
 
-    initializer "piggybak_giftcerts.precompile_hook", :group => :all do |app|
-      app.config.assets.precompile += ['piggybak_giftcerts/piggybak_giftcerts.js']
+    initializer "piggybak_giftcerts.assets.precompile" do |app|
+      app.config.assets.precompile += ['piggybak_giftcerts/piggybak_coupons.js']
     end
 
     initializer "piggybak_giftcerts.rails_admin_config" do |app|
