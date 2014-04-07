@@ -26,7 +26,7 @@ module PiggybakGiftcerts
 
     def self.valid_giftcert(code, object, existing_record = false)
       # First check
-      giftcert = Giftcert.find_by_code(code)
+      giftcert = Giftcert.where(code: code).first
       return "Invalid giftcert code." if giftcert.nil?
 
       # Expiration date check
@@ -42,7 +42,7 @@ module PiggybakGiftcerts
     end
 
     def self.apply_giftcert(code, object, totalcost = 0, current_balance = 0)
-      giftcert = Giftcert.find_by_code(code)
+      giftcert = Giftcert.where(code: code).first
 
       if object.is_a?(::Piggybak::Order)
         # Apply gift cert to everything exception payment and giftcert application
